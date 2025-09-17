@@ -273,111 +273,189 @@
     </div>
 
     <script>
-        // Word list and their common misspellings
+        // Word list with their misspellings and themed sentences
         const wordData = [
-            {word: 'benevolent', wrong: 'benevalent'}, {word: 'deface', wrong: 'defase'},
-            {word: 'fathom', wrong: 'fathum'}, {word: 'impudent', wrong: 'impudant'},
-            {word: 'ostentatious', wrong: 'ostentacious'}, {word: 'bias', wrong: 'byas'},
-            {word: 'feral', wrong: 'ferel'}, {word: 'puerile', wrong: 'pueril'},
-            {word: 'speculative', wrong: 'speculativ'}, {word: 'superficial', wrong: 'superfishial'},
-            {word: 'inestimable', wrong: 'inestimible'}, {word: 'hazy', wrong: 'haisy'},
-            {word: 'commandeer', wrong: 'commendeer'}, {word: 'urgent', wrong: 'urgant'},
-            {word: 'amenable', wrong: 'amenible'}, {word: 'rummage', wrong: 'rumage'},
-            {word: 'accumulate', wrong: 'acumulate'}, {word: 'fortnight', wrong: 'fournight'},
-            {word: 'monumental', wrong: 'monumentel'}, {word: 'edifice', wrong: 'edifise'}
+            {
+                word: 'benevolent', wrong: 'benevalent',
+                sentences: {
+                    football: "The {word} manager always helped young players develop their skills.",
+                    clash: "The {word} clan leader always shared resources with struggling members.",
+                    racing: "The {word} racing driver always donated prize money to charity.",
+                    millionaire: "The {word} billionaire always funded scholarships for underprivileged students."
+                }
+            },
+            {
+                word: 'deface', wrong: 'defase',
+                sentences: {
+                    football: "Vandals tried to {word} the stadium walls with spray paint.",
+                    clash: "Hackers tried to {word} player profiles with inappropriate clan names.",
+                    racing: "Vandals tried to {word} the classic car's pristine paint job.",
+                    millionaire: "Market crashes can {word} carefully built investment portfolio values."
+                }
+            },
+            {
+                word: 'fathom', wrong: 'fathum',
+                sentences: {
+                    football: "Coaches struggle to {word} the complexity of modern tactical systems.",
+                    clash: "New players struggle to {word} the complex card interaction mechanics.",
+                    racing: "Engineers struggle to {word} the complex aerodynamics of modern vehicles.",
+                    millionaire: "Financial analysts struggle to {word} the complexity of global markets."
+                }
+            },
+            {
+                word: 'impudent', wrong: 'impudant',
+                sentences: {
+                    football: "The {word} player constantly argued with referees and officials.",
+                    clash: "The {word} opponent kept spamming crying emotes after every victory.",
+                    racing: "The {word} driver made rude gestures at competitors during races.",
+                    millionaire: "The {word} investor made disrespectful comments about his competitors."
+                }
+            },
+            {
+                word: 'ostentatious', wrong: 'ostentacious',
+                sentences: {
+                    football: "The wealthy owner made an {word} display of his gold-plated boots.",
+                    clash: "The whale player made an {word} display of his maxed golden cards.",
+                    racing: "The billionaire owner made an {word} display of his diamond-studded helmet.",
+                    millionaire: "The tech mogul made an {word} display of his wealth."
+                }
+            },
+            {
+                word: 'bias', wrong: 'byas',
+                sentences: {
+                    football: "The referee showed unfair {word} against the visiting team.",
+                    clash: "The matchmaking system showed unfair {word} against free-to-play accounts.",
+                    racing: "The race officials showed clear {word} toward certain factory teams.",
+                    millionaire: "The trading algorithm showed systematic {word} against retail investors."
+                }
+            },
+            {
+                word: 'feral', wrong: 'ferel',
+                sentences: {
+                    football: "The {word} dog ran onto the pitch during the match.",
+                    clash: "The {word} barbarian horde attacked with savage, uncontrolled fury.",
+                    racing: "The {word} driving style was completely wild and uncontrolled.",
+                    millionaire: "The {word} market behavior created unpredictable trading conditions."
+                }
+            },
+            {
+                word: 'puerile', wrong: 'pueril',
+                sentences: {
+                    football: "The commentator made {word} jokes that annoyed serious fans.",
+                    clash: "His {word} deck strategy was too simple for competitive tournament play.",
+                    racing: "The rookie made {word} mistakes that cost valuable championship points.",
+                    millionaire: "The day trader made {word} investment decisions without proper research."
+                }
+            },
+            {
+                word: 'speculative', wrong: 'speculativ',
+                sentences: {
+                    football: "The transfer rumor was purely {word} without any confirmed sources.",
+                    clash: "The meta prediction was purely {word} without win rate data.",
+                    racing: "The setup change was purely {word} without telemetry data support.",
+                    millionaire: "The market forecast was purely {word} without fundamental analysis backing."
+                }
+            },
+            {
+                word: 'superficial', wrong: 'superfishial',
+                sentences: {
+                    football: "The pundit gave only {word} analysis without tactical depth.",
+                    clash: "The guide provided only {word} advice without explaining deeper strategy.",
+                    racing: "The commentary provided only {word} technical analysis without real insight.",
+                    millionaire: "The financial report provided only {word} analysis without meaningful insights."
+                }
+            },
+            {
+                word: 'inestimable', wrong: 'inestimible',
+                sentences: {
+                    football: "Ronaldo's experience provides {word} value to any squad.",
+                    clash: "Professional players provide {word} value to the competitive esports scene.",
+                    racing: "A legendary crew chief provides {word} value to any team.",
+                    millionaire: "A skilled investment advisor provides {word} value to wealthy clients."
+                }
+            },
+            {
+                word: 'hazy', wrong: 'haisy',
+                sentences: {
+                    football: "The {word} fog made it difficult to see the ball.",
+                    clash: "The {word} server lag made precise spell timing nearly impossible.",
+                    racing: "The {word} track conditions made racing visibility extremely dangerous.",
+                    millionaire: "The {word} economic outlook made business planning extremely difficult."
+                }
+            },
+            {
+                word: 'commandeer', wrong: 'commendeer',
+                sentences: {
+                    football: "The new owner will {word} the team bus for official parades.",
+                    clash: "Skilled players can {word} the opponent's elixir and control momentum.",
+                    racing: "Security teams will {word} any suspicious vehicles near the paddock.",
+                    millionaire: "Cybercriminals will {word} bank systems to steal account information."
+                }
+            },
+            {
+                word: 'urgent', wrong: 'urgant',
+                sentences: {
+                    football: "The player's injury requires {word} medical attention from doctors.",
+                    clash: "Critical tower damage requires {word} spell response from players.",
+                    racing: "Engine failures require {word} immediate attention from mechanics.",
+                    millionaire: "The market volatility requires {word} attention from portfolio managers."
+                }
+            },
+            {
+                word: 'amenable', wrong: 'amenible',
+                sentences: {
+                    football: "The striker remained {word} to the coach's new formation system.",
+                    clash: "She remained {word} to her coach's deck building suggestions.",
+                    racing: "The driver remained {word} to the team's strategic race plans.",
+                    millionaire: "The hedge fund remained {word} to the advisor's diversification strategy."
+                }
+            },
+            {
+                word: 'rummage', wrong: 'rumage',
+                sentences: {
+                    football: "Equipment managers {word} through kit bags looking for spare jerseys.",
+                    clash: "Players constantly {word} through their collections seeking card synergies.",
+                    racing: "Mechanics constantly {word} through parts bins searching for replacements.",
+                    millionaire: "Investors constantly {word} through financial statements seeking opportunities."
+                }
+            },
+            {
+                word: 'accumulate', wrong: 'acumulate',
+                sentences: {
+                    football: "Match fitness will {word} over weeks of intensive training sessions.",
+                    clash: "Skill ratings will {word} over time with consistent practice.",
+                    racing: "Championship points will {word} throughout the entire season schedule.",
+                    millionaire: "Investment returns will {word} over decades of compound growth."
+                }
+            },
+            {
+                word: 'fortnight', wrong: 'fournight',
+                sentences: {
+                    football: "The international break lasted exactly one {word}.",
+                    clash: "The clan war preparation period lasted exactly one {word}.",
+                    racing: "The summer racing break lasted exactly one {word}.",
+                    millionaire: "The lock-up period lasted exactly one {word}."
+                }
+            },
+            {
+                word: 'monumental', wrong: 'monumentel',
+                sentences: {
+                    football: "Winning the Champions League would be a {word} achievement.",
+                    clash: "Reaching ultimate champion league represents a {word} gaming achievement.",
+                    racing: "Winning the Formula 1 world championship is a {word} achievement.",
+                    millionaire: "Building a trillion-dollar company represents a {word} business achievement."
+                }
+            },
+            {
+                word: 'edifice', wrong: 'edifise',
+                sentences: {
+                    football: "The new stadium is an impressive {word} overlooking the city.",
+                    clash: "The royal tournament arena is a magnificent {word} with golden spires.",
+                    racing: "The new racing circuit is an impressive {word} in the desert.",
+                    millionaire: "The investment bank headquarters is an imposing {word} downtown."
+                }
+            }
         ];
-
-        // Themed sentences for each game
-        const gameSentences = {
-            football: [
-                "The {word} manager always helped young players develop their skills.",
-                "Vandals tried to {word} the stadium walls with spray paint.",
-                "Coaches struggle to {word} the complexity of modern tactical systems.",
-                "The {word} player constantly argued with referees and officials.",
-                "The wealthy owner made an {word} display of his gold-plated boots.",
-                "The referee showed unfair {word} against the visiting team.",
-                "The {word} dog ran onto the pitch during the match.",
-                "The commentator made {word} jokes that annoyed serious fans.",
-                "The transfer rumor was purely {word} without any confirmed sources.",
-                "The pundit gave only {word} analysis without tactical depth.",
-                "Ronaldo's experience provides {word} value to any squad.",
-                "The {word} fog made it difficult to see the ball.",
-                "The new owner will {word} the team bus for official parades.",
-                "The player's injury requires {word} medical attention from doctors.",
-                "The striker remained {word} to the coach's new formation system.",
-                "Equipment managers {word} through kit bags looking for spare jerseys.",
-                "Match fitness will {word} over weeks of intensive training sessions.",
-                "The international break lasted exactly one {word}.",
-                "Winning the Champions League would be a {word} achievement.",
-                "The new stadium is an impressive {word} overlooking the city."
-            ],
-            clash: [
-                "The {word} clan leader always shared resources with struggling members.",
-                "Hackers tried to {word} player profiles with inappropriate clan names.",
-                "New players struggle to {word} the complex card interaction mechanics.",
-                "The {word} opponent kept spamming crying emotes after every victory.",
-                "The whale player made an {word} display of his maxed golden cards.",
-                "The matchmaking system showed unfair {word} against free-to-play accounts.",
-                "The {word} barbarian horde attacked with savage, uncontrolled fury.",
-                "His {word} deck strategy was too simple for competitive tournament play.",
-                "The meta prediction was purely {word} without win rate data.",
-                "The guide provided only {word} advice without explaining deeper strategy.",
-                "Professional players provide {word} value to the competitive esports scene.",
-                "The {word} server lag made precise spell timing nearly impossible.",
-                "Skilled players can {word} the opponent's elixir and control momentum.",
-                "Critical tower damage requires {word} spell response from players.",
-                "She remained {word} to her coach's deck building suggestions.",
-                "Players constantly {word} through their collections seeking card synergies.",
-                "Skill ratings will {word} over time with consistent practice.",
-                "The clan war preparation period lasted exactly one {word}.",
-                "Reaching ultimate champion league represents a {word} gaming achievement.",
-                "The royal tournament arena is a magnificent {word} with golden spires."
-            ],
-            racing: [
-                "The {word} racing driver always donated prize money to charity.",
-                "Vandals tried to {word} the classic car's pristine paint job.",
-                "Engineers struggle to {word} the complex aerodynamics of modern vehicles.",
-                "The {word} driver made rude gestures at competitors during races.",
-                "The billionaire owner made an {word} display of his diamond-studded helmet.",
-                "The race officials showed clear {word} toward certain factory teams.",
-                "The {word} driving style was completely wild and uncontrolled.",
-                "The rookie made {word} mistakes that cost valuable championship points.",
-                "The setup change was purely {word} without telemetry data support.",
-                "The commentary provided only {word} technical analysis without real insight.",
-                "A legendary crew chief provides {word} value to any team.",
-                "The {word} track conditions made racing visibility extremely dangerous.",
-                "Security teams will {word} any suspicious vehicles near the paddock.",
-                "Engine failures require {word} immediate attention from mechanics.",
-                "The driver remained {word} to the team's strategic race plans.",
-                "Mechanics constantly {word} through parts bins searching for replacements.",
-                "Championship points will {word} throughout the entire season schedule.",
-                "The summer racing break lasted exactly one {word}.",
-                "Winning the Formula 1 world championship is a {word} achievement.",
-                "The new racing circuit is an impressive {word} in the desert."
-            ],
-            millionaire: [
-                "The {word} billionaire always funded scholarships for underprivileged students.",
-                "Market crashes can {word} carefully built investment portfolio values.",
-                "Financial analysts struggle to {word} the complexity of global markets.",
-                "The {word} investor made disrespectful comments about his competitors.",
-                "The tech mogul made an {word} display of his wealth.",
-                "The trading algorithm showed systematic {word} against retail investors.",
-                "The {word} market behavior created unpredictable trading conditions.",
-                "The day trader made {word} investment decisions without proper research.",
-                "The market forecast was purely {word} without fundamental analysis backing.",
-                "The financial report provided only {word} analysis without meaningful insights.",
-                "A skilled investment advisor provides {word} value to wealthy clients.",
-                "The {word} economic outlook made business planning extremely difficult.",
-                "Cybercriminals will {word} bank systems to steal account information.",
-                "The market volatility requires {word} attention from portfolio managers.",
-                "The hedge fund remained {word} to the advisor's diversification strategy.",
-                "Investors constantly {word} through financial statements seeking opportunities.",
-                "Investment returns will {word} over decades of compound growth.",
-                "The lock-up period lasted exactly one {word}.",
-                "Building a trillion-dollar company represents a {word} business achievement.",
-                "The investment bank headquarters is an imposing {word} downtown."
-            ]
-        };
 
         // Game state
         let currentGame = '';
@@ -427,8 +505,7 @@
             }
 
             currentWordData = gameWords[currentWordIndex];
-            const sentences = gameSentences[currentGame];
-            const sentence = sentences[currentWordIndex].replace('{word}', `<span class="incorrect-word">${currentWordData.wrong}</span>`);
+            const sentence = currentWordData.sentences[currentGame].replace('{word}', `<span class="incorrect-word">${currentWordData.wrong}</span>`);
             
             document.getElementById('sentenceDisplay').innerHTML = sentence;
             document.getElementById('spellingInput').value = '';
