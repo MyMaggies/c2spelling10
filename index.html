@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 10 Spelling Challenge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .score-board {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .game-card {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .game-card h3 {
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .game-area {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            min-height: 400px;
+        }
+
+        .sentence-display {
+            font-size: 1.3em;
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+
+        .incorrect-word {
+            background: #FF6B6B;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .input-area {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .spelling-input {
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            margin: 10px;
+            text-align: center;
+            min-width: 250px;
+        }
+
+        .feedback {
+            text-align: center;
+            font-size: 1.2em;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .correct { color: #00FF00; }
+        .incorrect { color: #FF6B6B; }
+
+        .progress-bar {
+            background: rgba(255,255,255,0.2);
+            height: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #FFD700, #FF6B6B);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .theme-icons {
+            font-size: 1.5em;
+            margin: 0 10px;
+        }
+
+        .leaderboard {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .achievement {
+            background: linear-gradient(45deg, #FFD700, #FF8C00);
+            color: black;
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin: 5px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            font-size: 20px;
+        }
+
+        .hint-instruction {
+            font-size: 0.9em;
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .sentence-display {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏆 Grade 10 Spelling Championship 🏆</h1>
+            <div class="theme-icons">
+                ⚽ 🏎️ 👑 💰
+            </div>
+        </div>
+
+        <div class="score-board">
+            <h2>Your Stats</h2>
+            <p>Total Score: <span id="totalScore">0</span> points 💰</p>
+            <p>Words Fixed: <span id="wordsCompleted">0</span>/20 📚</p>
+            <p>Current Streak: <span id="currentStreak">0</span> 🔥</p>
+        </div>
+
+        <div class="games-grid">
+            <div class="game-card">
+                <h3>⚽ Football Report Editor</h3>
+                <p>Fix spelling mistakes in match reports and transfer news. Spot the errors and correct them!</p>
+                <button class="btn" onclick="startFootballGame()">Start Editing</button>
+            </div>
+
+            <div class="game-card">
+                <h3>👑 Clash Royale Strategy Guide</h3>
+                <p>Correct spelling errors in battle strategies and card descriptions. Perfect your guide!</p>
+                <button class="btn" onclick="startClashGame()">Enter Arena</button>
+            </div>
+
+            <div class="game-card">
+                <h3>🏎️ Racing News Desk</h3>
+                <p>Edit racing news articles and fix spelling mistakes before publication!</p>
+                <button class="btn" onclick="startRacingGame()">Start Editing</button>
+            </div>
+
+            <div class="game-card">
+                <h3>💰 Business News Editor</h3>
+                <p>Proofread financial reports and investment news. Find and fix the spelling errors!</p>
+                <button class="btn" onclick="startMillionaireGame()">Start Proofreading</button>
+            </div>
+        </div>
+
+        <div class="game-area" id="gameArea" style="display: none;">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+            </div>
+            
+            <div class="hint-instruction">
+                Find the spelling mistake in this sentence and type the correct spelling:
+            </div>
+            
+            <div class="sentence-display" id="sentenceDisplay"></div>
+            
+            <div class="input-area">
+                <input type="text" class="spelling-input" id="spellingInput" placeholder="Type the correct spelling here..." maxlength="20">
+                <br>
+                <button class="btn" onclick="checkSpelling()">Submit Correction</button>
+                <button class="btn" onclick="skipWord()">Skip (−5 points)</button>
+            </div>
+            <div class="feedback" id="feedback"></div>
+            <div class="input-area">
+                <button class="btn audio-btn" onclick="playAudio()">🔊 Hear Pronunciation</button>
+                <button class="btn" onclick="getHint()">💡 Get Hint (−2 points)</button>
+            </div>
+        </div>
+
+        <div class="leaderboard">
+            <h3>🏆 Today's Achievements</h3>
+            <div id="achievements"></div>
+        </div>
+    </div>
+
+    <script>
+        // Word list and their common misspellings
+        const wordData = [
+            {word: 'benevolent', wrong: 'benevalent'}, {word: 'deface', wrong: 'defase'},
+            {word: 'fathom', wrong: 'fathum'}, {word: 'impudent', wrong: 'impudant'},
+            {word: 'ostentatious', wrong: 'ostentacious'}, {word: 'bias', wrong: 'byas'},
+            {word: 'feral', wrong: 'ferel'}, {word: 'puerile', wrong: 'pueril'},
+            {word: 'speculative', wrong: 'speculativ'}, {word: 'superficial', wrong: 'superfishial'},
+            {word: 'inestimable', wrong: 'inestimible'}, {word: 'hazy', wrong: 'haisy'},
+            {word: 'commandeer', wrong: 'commendeer'}, {word: 'urgent', wrong: 'urgant'},
+            {word: 'amenable', wrong: 'amenible'}, {word: 'rummage', wrong: 'rumage'},
+            {word: 'accumulate', wrong: 'acumulate'}, {word: 'fortnight', wrong: 'fournight'},
+            {word: 'monumental', wrong: 'monumentel'}, {word: 'edifice', wrong: 'edifise'}
+        ];
+
+        // Themed sentences for each game
+        const gameSentences = {
+            football: [
+                "The {word} manager donated money to the youth academy.",
+                "Vandals tried to {word} the stadium walls with graffiti.",
+                "Coaches struggle to {word} the complexity of modern tactics.",
+                "The {word} player argued with the referee constantly.",
+                "The striker made an {word} celebration after scoring.",
+                "The referee showed clear {word} toward the home team.",
+                "The {word} tackle earned him a red card.",
+                "His {word} behavior embarrassed the entire squad.",
+                "The transfer rumor was purely {word} with no facts.",
+                "The commentator gave only {word} analysis of the match.",
+                "Messi's talent provides {word} value to any team.",
+                "The {word} weather made visibility poor during the match.",
+                "Pirates would {word} the team bus for ransom.",
+                "The injury situation requires {word} medical attention.",
+                "The player remained {word} to the coach's tactical changes.",
+                "Fans {word} through merchandise stands for team scarves.",
+                "Points {word} over the season to determine the champion.",
+                "The training camp lasted exactly one {word}.",
+                "Winning the World Cup would be a {word} achievement.",
+                "The new stadium is a magnificent {word} in the city."
+            ],
+            clash: [
+                "The {word} clan leader shared gems with all members.",
+                "Griefers tried to {word} the beautiful arena artwork with inappropriate names.",
+                "Players struggle to {word} the complex interaction mechanics between cards.",
+                "The {word} player kept using crying emotes and toxic behavior.",
+                "His {word} golden deck skins were designed to show off wealth.",
+                "The matchmaking algorithm showed clear {word} against free-to-play players.",
+                "The {word} barbarians fought with savage, uncontrolled aggression.",
+                "His {word} deck strategy was too simple and childish for competitive play.",
+                "The meta prediction was purely {word} without actual win rate data.",
+                "His {word} card analysis only looked at stats, missing deeper strategy.",
+                "Pro players provide {word} value to the competitive scene.",
+                "The {word} lag made precise spell timing nearly impossible.",
+                "Skilled players can {word} enemy elixir and control the pace.",
+                "Critical tower damage requires {word} immediate spell response.",
+                "She remained {word} to the coach's new deck suggestions.",
+                "Players {word} through their card collection looking for synergies.",
+                "Trophies {word} over time with consistent skilled gameplay.",
+                "The clan war preparation period lasted exactly one {word}.",
+                "Reaching ultimate champion league is a {word} achievement.",
+                "The royal arena is a magnificent {word} with golden towers."
+            ],
+            racing: [
+                "The {word} driver donated winnings to charity.",
+                "Crashes can {word} the beautiful car bodywork.",
+                "Engineers struggle to {word} aerodynamic principles.",
+                "The {word} driver cut off other racers dangerously.",
+                "His {word} car was covered in expensive modifications.",
+                "The judges showed clear {word} toward certain teams.",
+                "The {word} driving style scared other competitors.",
+                "Making {word} moves cost him the championship.",
+                "The car's performance was purely {word} without data.",
+                "The {word} analysis missed the engine's main problem.",
+                "A skilled mechanic provides {word} value to any team.",
+                "The {word} weather made track visibility very poor.",
+                "Thieves would {word} race cars from the paddock.",
+                "The engine failure requires {word} immediate attention.",
+                "The driver remained {word} to the team's strategy.",
+                "Mechanics {word} through spare parts for replacements.",
+                "Championship points {word} throughout the racing season.",
+                "The racing season lasted exactly one {word}.",
+                "Winning the championship would be a {word} achievement.",
+                "The new racing circuit is a magnificent {word}."
+            ],
+            millionaire: [
+                "The {word} billionaire funded educational scholarships.",
+                "Market crashes can {word} investment portfolio values.",
+                "Analysts struggle to {word} complex market movements.",
+                "The {word} investor made rude comments about competitors.",
+                "His {word} lifestyle displayed wealth through expensive items.",
+                "The system showed clear {word} toward established investors.",
+                "The {word} trading approach yielded unpredictable results.",
+                "Making {word} investment decisions lost him money.",
+                "The market prediction was purely {word} without research.",
+                "The {word} financial analysis lacked depth and insight.",
+                "A good financial advisor provides {word} value.",
+                "The {word} economic forecast made planning difficult.",
+                "Hackers would {word} bank accounts for illegal gains.",
+                "The market crash requires {word} immediate action.",
+                "He remained {word} to the advisor's investment strategy.",
+                "Investors {word} through financial reports for opportunities.",
+                "Profits {word} steadily through smart investment choices.",
+                "The investment period lasted exactly one {word}.",
+                "Building a billion-dollar company is a {word} achievement.",
+                "The bank headquarters is a magnificent {word}."
+            ]
+        };
+
+        // Game state
+        let currentGame = '';
+        let currentWordIndex = 0;
+        let currentWordData = null;
+        let score = 0;
+        let streak = 0;
+        let wordsCompleted = 0;
+        let gameWords = [];
+        let hintsUsed = 0;
+
+        // Audio synthesis for pronunciation
+        function speakWord(word) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.rate = 0.7;
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        function updateScore() {
+            document.getElementById('totalScore').textContent = score;
+            document.getElementById('currentStreak').textContent = streak;
+            document.getElementById('wordsCompleted').textContent = wordsCompleted;
+        }
+
+        function startGame(gameType) {
+            currentGame = gameType;
+            currentWordIndex = 0;
+            gameWords = [...wordData].sort(() => Math.random() - 0.5); // Shuffle words
+            document.getElementById('gameArea').style.display = 'block';
+            document.getElementById('gameArea').scrollIntoView({behavior: 'smooth'});
+            nextWord();
+        }
+
+        function startFootballGame() { startGame('football'); }
+        function startClashGame() { startGame('clash'); }
+        function startRacingGame() { startGame('racing'); }
+        function startMillionaireGame() { startGame('millionaire'); }
+
+        function nextWord() {
+            if (currentWordIndex >= gameWords.length) {
+                endGame();
+                return;
+            }
+
+            currentWordData = gameWords[currentWordIndex];
+            const sentences = gameSentences[currentGame];
+            const sentence = sentences[currentWordIndex].replace('{word}', `<span class="incorrect-word">${currentWordData.wrong}</span>`);
+            
+            document.getElementById('sentenceDisplay').innerHTML = sentence;
+            document.getElementById('spellingInput').value = '';
+            document.getElementById('spellingInput').focus();
+            document.getElementById('feedback').textContent = '';
+            
+            // Update progress bar
+            const progress = (currentWordIndex / gameWords.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function checkSpelling() {
+            const userInput = document.getElementById('spellingInput').value.toLowerCase().trim();
+            const feedback = document.getElementById('feedback');
+            
+            if (userInput === currentWordData.word.toLowerCase()) {
+                feedback.textContent = '🎉 Correct! Perfect spelling!';
+                feedback.className = 'feedback correct';
+                
+                // Scoring based on word difficulty
+                let points = 10;
+                if (currentWordData.word.length > 8) points = 15;
+                if (currentWordData.word.length > 10) points = 20;
+                
+                score += points;
+                streak++;
+                wordsCompleted++;
+                
+                // Bonus for streak
+                if (streak >= 5) {
+                    score += 5;
+                    feedback.textContent += ' 🔥 Streak bonus: +5 points!';
+                }
+                
+                updateScore();
+                addAchievement();
+                
+                setTimeout(() => {
+                    currentWordIndex++;
+                    nextWord();
+                }, 1500);
+                
+            } else {
+                feedback.textContent = `❌ Incorrect. The correct spelling is: "${currentWordData.word}"`;
+                feedback.className = 'feedback incorrect';
+                streak = 0;
+                updateScore();
+                
+                setTimeout(() => {
+                    currentWordIndex++;
+                    nextWord();
+                }, 2500);
+            }
+        }
+
+        function skipWord() {
+            score = Math.max(0, score - 5);
+            streak = 0;
+            updateScore();
+            
+            document.getElementById('feedback').textContent = `⏭️ Skipped! The correct word was: "${currentWordData.word}" (-5 points)`;
+            document.getElementById('feedback').className = 'feedback incorrect';
+            
+            setTimeout(() => {
+                currentWordIndex++;
+                nextWord();
+            }, 2000);
+        }
+
+        function playAudio() {
+            speakWord(currentWordData.word);
+            document.getElementById('feedback').textContent = `🔊 Playing pronunciation of the correct word...`;
+            document.getElementById('feedback').className = 'feedback';
+        }
+
+        function getHint() {
+            if (hintsUsed < 3) {
+                score = Math.max(0, score - 2);
+                hintsUsed++;
+                
+                const hint = currentWordData.word.substring(0, Math.ceil(currentWordData.word.length / 3)) + '...';
+                document.getElementById('feedback').textContent = `💡 Hint: Correct spelling starts with "${hint}" (-2 points)`;
+                document.getElementById('feedback').className = 'feedback';
+                updateScore();
+            } else {
+                document.getElementById('feedback').textContent = '💡 No more hints available this round!';
+                document.getElementById('feedback').className = 'feedback';
+            }
+        }
+
+        function endGame() {
+            const percentage = Math.round((wordsCompleted / gameWords.length) * 100);
+            let message = `🎊 Game Complete! 🎊\n\n`;
+            message += `Final Score: ${score} points\n`;
+            message += `Words Fixed: ${wordsCompleted}/${gameWords.length} (${percentage}%)\n\n`;
+            
+            if (percentage >= 90) message += '🏆 LEGENDARY EDITOR! You\'re a spelling champion!';
+            else if (percentage >= 75) message += '🥇 EXCELLENT PROOFREADER! Outstanding work!';
+            else if (percentage >= 60) message += '🥈 GREAT EDITOR! Well done!';
+            else if (percentage >= 40) message += '🥉 GOOD EFFORT! Keep practicing!';
+            else message += '📚 KEEP LEARNING! Practice makes perfect!';
+            
+            alert(message);
+            
+            // Reset for next game
+            currentWordIndex = 0;
+            hintsUsed = 0;
+            document.getElementById('gameArea').style.display = 'none';
+        }
+
+        function addAchievement() {
+            const achievements = document.getElementById('achievements');
+            let newAchievement = '';
+            
+            if (wordsCompleted === 5) newAchievement = '🎯 First 5 Corrections!';
+            else if (wordsCompleted === 10) newAchievement = '⭐ Halfway Hero!';
+            else if (wordsCompleted === 15) newAchievement = '🚀 Almost Perfect!';
+            else if (wordsCompleted === 20) newAchievement = '👑 Spelling Master Editor!';
+            else if (streak === 5) newAchievement = '🔥 On Fire!';
+            else if (streak === 10) newAchievement = '⚡ Lightning Editor!';
+            else if (score >= 100) newAchievement = '💰 First 100 Points!';
+            else if (score >= 250) newAchievement = '💎 Quarter Master!';
+            
+            if (newAchievement) {
+                const achievementEl = document.createElement('span');
+                achievementEl.className = 'achievement';
+                achievementEl.textContent = newAchievement;
+                achievements.appendChild(achievementEl);
+            }
+        }
+
+        // Prevent copy/paste and add Enter key functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.getElementById('spellingInput');
+            
+            // Allow Enter key to submit
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkSpelling();
+                }
+            });
+
+            // Prevent copy/paste operations
+            input.addEventListener('paste', function(e) {
+                e.preventDefault();
+                document.getElementById('feedback').textContent = '⚠️ No copying allowed! Type the spelling yourself.';
+                document.getElementById('feedback').className = 'feedback incorrect';
+                setTimeout(() => {
+                    document.getElementById('feedback').textContent = '';
+                }, 2000);
+            });
+
+            input.addEventListener('copy', function(e) {
+                e.preventDefault();
+            });
+
+            input.addEventListener('cut', function(e) {
+                e.preventDefault();
+            });
+
+            // Prevent right-click context menu on input
+            input.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                document.getElementById('feedback').textContent = '⚠️ Right-click disabled for fair play!';
+                document.getElementById('feedback').className = 'feedback incorrect';
+                setTimeout(() => {
+                    document.getElementById('feedback').textContent = '';
+                }, 2000);
+            });
+
+            // Prevent common keyboard shortcuts for copy/paste
+            input.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'v' || e.key === 'x' || e.key === 'a')) {
+                    e.preventDefault();
+                    document.getElementById('feedback').textContent = '⚠️ Keyboard shortcuts disabled! Type manually.';
+                    document.getElementById('feedback').className = 'feedback incorrect';
+                    setTimeout(() => {
+                        document.getElementById('feedback').textContent = '';
+                    }, 2000);
+                }
+            });
+        });
+
+        // Initialize
+        updateScore();
+    </script>
+</body>
+</html>
